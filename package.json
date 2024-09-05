@@ -2,7 +2,8 @@
   "name": "api",
   "scripts": {
     "start": "tsx src/index.ts",
-    "start:dev": "tsx watch src/index.ts"
+    "start:dev": "tsx watch src/index.ts",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@fiberplane/hono-otel": "0.2.0-beta.1",
