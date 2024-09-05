@@ -3,7 +3,8 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "start:dev": "tsx watch src/index.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fiberplane/hono-otel": "0.2.0-beta.1",
@@ -22,6 +23,7 @@
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18.3.5",
     "dotenv": "^16.4.5",
+    "husky": "^9.1.5",
     "kittylog": "^1.0.6",
     "prettier": "^3.3.3",
     "prisma": "^5.19.1",
