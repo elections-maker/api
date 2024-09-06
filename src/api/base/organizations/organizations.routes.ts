@@ -1,9 +1,10 @@
 import { generateRouter } from "@/utils/router";
 import * as schemas from "./organizations.schemas";
 
-import { createOrganizationService } from "./services/create.service";
-import { getAllOrganizationsService } from "./services/get-all.service";
 import { getOrganizationService } from "./services/get.service";
+import { createOrganizationService } from "./services/create.service";
+import { deleteOrganizationService } from "./services/delete.service";
+import { getAllOrganizationsService } from "./services/get-all.service";
 
 export const organizationsRouter = generateRouter([
   {
@@ -15,6 +16,11 @@ export const organizationsRouter = generateRouter([
     path: "/:organizationId",
     method: "GET",
     handler: getOrganizationService,
+  },
+  {
+    path: "/:organizationId",
+    method: "DELETE",
+    handler: deleteOrganizationService,
   },
   {
     path: "/",
