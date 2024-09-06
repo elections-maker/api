@@ -15,3 +15,9 @@ export type EmailOptions = {
   subject: string;
   email: React.ReactElement;
 };
+
+export type AccessDecodedToken = {
+  userId: string;
+};
+
+export type Env<T> = { Variables: T };
