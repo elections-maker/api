@@ -1,14 +1,12 @@
-import { Hono } from "hono";
+import "dotenv/config";
+
 import { custom } from "kittylog";
 import { showRoutes } from "hono/dev";
 import { serve } from "@hono/node-server";
+import { bootstrapApplication } from "./app";
 import { instrument } from "@fiberplane/hono-otel";
 
-const app = new Hono();
-
-app.get("/", (c) => {
-  return c.json({ success: true, message: "Hello from elections maker api!" });
-});
+const app = bootstrapApplication();
 
 const serverConfig = {
   port: 8000,
