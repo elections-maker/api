@@ -86,3 +86,36 @@ export const usersResponses = {
     message: "User deleted successfully!",
   },
 };
+
+export const listsResponses = {
+  notExists: {
+    success: false,
+    message: "List does not exist!",
+  },
+  exists: {
+    success: false,
+    message: "List already exists!",
+  },
+  created: {
+    success: true,
+    message: "List created successfully!",
+  },
+  updated: {
+    success: true,
+    message: "List updated successfully!",
+  },
+  deleted: {
+    success: true,
+    message: "List deleted successfully!",
+  },
+  candidates: {
+    added: {
+      success: true,
+      message: "Users added to this list successfully!",
+    },
+    removed: {
+      success: true,
+      message: "Users removed from this list successfully!",
+    },
+  },
+};
