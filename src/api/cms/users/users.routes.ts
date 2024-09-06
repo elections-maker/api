@@ -2,6 +2,7 @@ import * as schemas from "./users.schemas";
 import { generateRouter } from "@/utils/router";
 
 import { getUserService } from "./services/get.service";
+import { updateUserService } from "./services/update.service";
 import { createUserService } from "./services/create.service";
 import { getAllUsersService } from "./services/get-all.service";
 
@@ -15,6 +16,12 @@ export const usersRouter = generateRouter([
     path: "/:userId",
     method: "GET",
     handler: getUserService,
+  },
+  {
+    path: "/:userId",
+    method: "PUT",
+    handler: updateUserService,
+    validators: [{ type: "json", schema: schemas.updateUserBody }],
   },
   {
     path: "/",
