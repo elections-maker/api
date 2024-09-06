@@ -36,3 +36,26 @@ export const authResponses = {
     message: "Login completed successfully!",
   },
 };
+
+export const organizationsResponses = {
+  notExists: {
+    success: false,
+    message: "Organization does not exists!",
+  },
+  exists: {
+    success: false,
+    message: "Organization already exists!",
+  },
+  created: {
+    success: true,
+    message: "Organization created successfully!",
+  },
+  updated: {
+    success: true,
+    message: "Organization updated successfully!",
+  },
+  deleted: {
+    success: true,
+    message: "Organization deleted successfully!",
+  },
+};
