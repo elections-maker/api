@@ -1,5 +1,3 @@
 import { Hono } from "hono";
 
-export const appRouter = new Hono();
-
-appRouter.basePath("/v1");
+export const appRouter = new Hono().basePath("/v1");
