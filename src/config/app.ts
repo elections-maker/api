@@ -19,6 +19,7 @@ export const appConfig = {
   corsConfig,
   smtpConfig,
   databaseUrl: env.DATABASE_URL,
+  baseOrgDatabaseUrl: env.BASE_ORG_DATABASE_URL,
   serverPort: env.SERVER_PORT,
   saltRounds: 10,
   frontendURL: env.FRONTEND_URL,
