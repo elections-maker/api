@@ -63,3 +63,26 @@ export const organizationsResponses = {
     message: "Organization deleted successfully!",
   },
 };
+
+export const usersResponses = {
+  notExists: {
+    success: false,
+    message: "User does not exist!",
+  },
+  exists: {
+    success: false,
+    message: "User already exists!",
+  },
+  created: {
+    success: true,
+    message: "User created successfully!",
+  },
+  updated: {
+    success: true,
+    message: "User updated successfully!",
+  },
+  deleted: {
+    success: true,
+    message: "User deleted successfully!",
+  },
+};
