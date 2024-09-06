@@ -1,3 +1,13 @@
+import * as schemas from "./users.schemas";
 import { generateRouter } from "@/utils/router";
 
-export const usersRouter = generateRouter([]);
+import { createUserService } from "./services/create.service";
+
+export const usersRouter = generateRouter([
+  {
+    path: "/",
+    method: "POST",
+    handler: createUserService,
+    validators: [{ type: "json", schema: schemas.createUserBody }],
+  },
+]);
