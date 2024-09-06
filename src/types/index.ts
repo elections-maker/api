@@ -20,4 +20,8 @@ export type AccessDecodedToken = {
   userId: string;
 };
 
+export type VerifyResetDecodedToken = {
+  email: string;
+};
+
 export type Env<T> = { Variables: T };
