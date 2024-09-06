@@ -46,6 +46,10 @@ export const organizationsResponses = {
     success: false,
     message: "Organization already exists!",
   },
+  limitExceeded: {
+    success: false,
+    message: "Attention, you can create only one free organization!",
+  },
   created: {
     success: true,
     message: "Organization created successfully!",
