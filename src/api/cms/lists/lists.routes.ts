@@ -8,6 +8,7 @@ import { createListService } from "./services/create.service";
 import { getAllListsService } from "./services/get-all.service";
 import { addListUsersService } from "./services/users/add.service";
 import { getListUsersService } from "./services/users/get-all.service";
+import { removeListUsersService } from "./services/users/remove.service";
 
 export const listsRouter = generateRouter([
   {
@@ -47,5 +48,11 @@ export const listsRouter = generateRouter([
     method: "POST",
     handler: addListUsersService,
     validators: [{ type: "json", schema: schemas.addListUsersBody }],
+  },
+  {
+    path: "/:listId/users",
+    method: "PUT",
+    handler: removeListUsersService,
+    validators: [{ type: "json", schema: schemas.removeListUsersBody }],
   },
 ]);
