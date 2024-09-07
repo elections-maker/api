@@ -6,6 +6,7 @@ import { createVotationService } from "./services/create.service";
 import { updateVotationService } from "./services/update.service";
 import { deleteVotationService } from "./services/delete.service";
 import { getAllVotationsService } from "./services/get-all.service";
+import { getVotationUsersService } from "./services/users/get-all.service";
 
 export const votationsRouter = generateRouter([
   {
@@ -34,5 +35,10 @@ export const votationsRouter = generateRouter([
     method: "POST",
     handler: createVotationService,
     validators: [{ type: "json", schema: schemas.createVotationBody }],
+  },
+  {
+    path: "/:votationId/users",
+    method: "GET",
+    handler: getVotationUsersService,
   },
 ]);
