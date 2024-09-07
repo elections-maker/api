@@ -1,164 +1,58 @@
+import { res } from "@/utils/response";
+
 export const authResponses = {
-  credentialsInvalid: {
-    success: false,
-    message: "Credentials are invald or wrong!",
-  },
-  tokenInvalid: {
-    success: false,
-    message: "Token is invalid or wrong!",
-  },
-  notVerified: {
-    success: false,
-    message: "Please verify your account to login it!",
-  },
-  notAuthorized: {
-    success: false,
-    message: "User is not authorized!",
-  },
-  verifySent: {
-    success: true,
-    message: "Email sent successfully, please verify your account!",
-  },
-  authorized: {
-    success: true,
-    message: "User is authorized!",
-  },
-  registered: {
-    success: true,
-    message: "Registration completed successfully!",
-  },
-  verified: {
-    success: true,
-    message: "Account verified successfully!",
-  },
-  logged: {
-    success: true,
-    message: "Login completed successfully!",
-  },
+  credentialsInvalid: res(false, "Credentials are invalid or wrong!"),
+  tokenInvalid: res(false, "Token is invalid or wrong!"),
+  notVerified: res(false, "Please verify your account to login!"),
+  notAuthorized: res(false, "User is not authorized!"),
+  verifySent: res(true, "Email sent successfully, please verify your account!"),
+  authorized: res(true, "User is authorized!"),
+  registered: res(true, "Registration completed successfully!"),
+  verified: res(true, "Account verified successfully!"),
+  logged: res(true, "Login completed successfully!"),
 };
 
 export const organizationsResponses = {
-  notExists: {
-    success: false,
-    message: "Organization does not exist!",
-  },
-  exists: {
-    success: false,
-    message: "Organization already exists!",
-  },
-  limitExceeded: {
-    success: false,
-    message: "Attention, you can create only one free organization!",
-  },
-  created: {
-    success: true,
-    message: "Organization created successfully!",
-  },
-  updated: {
-    success: true,
-    message: "Organization updated successfully!",
-  },
-  deleted: {
-    success: true,
-    message: "Organization deleted successfully!",
-  },
+  notExists: res(false, "Organization does not exist!"),
+  exists: res(false, "Organization already exists!"),
+  limitExceeded: res(false, "Attention, you can create only one free organization!"),
+  created: res(true, "Organization created successfully!"),
+  updated: res(true, "Organization updated successfully!"),
+  deleted: res(true, "Organization deleted successfully!"),
 };
 
 export const usersResponses = {
-  notExists: {
-    success: false,
-    message: "User does not exist!",
-  },
-  exists: {
-    success: false,
-    message: "User already exists!",
-  },
-  created: {
-    success: true,
-    message: "User created successfully!",
-  },
-  updated: {
-    success: true,
-    message: "User updated successfully!",
-  },
-  deleted: {
-    success: true,
-    message: "User deleted successfully!",
-  },
+  notExists: res(false, "User does not exist!"),
+  exists: res(false, "User already exists!"),
+  created: res(true, "User created successfully!"),
+  updated: res(true, "User updated successfully!"),
+  deleted: res(true, "User deleted successfully!"),
 };
 
 export const listsResponses = {
-  notExists: {
-    success: false,
-    message: "List does not exist!",
-  },
-  exists: {
-    success: false,
-    message: "List already exists!",
-  },
-  created: {
-    success: true,
-    message: "List created successfully!",
-  },
-  updated: {
-    success: true,
-    message: "List updated successfully!",
-  },
-  deleted: {
-    success: true,
-    message: "List deleted successfully!",
-  },
+  notExists: res(false, "List does not exist!"),
+  exists: res(false, "List already exists!"),
+  created: res(true, "List created successfully!"),
+  updated: res(true, "List updated successfully!"),
+  deleted: res(true, "List deleted successfully!"),
   candidates: {
-    added: {
-      success: true,
-      message: "Users added to this list successfully!",
-    },
-    removed: {
-      success: true,
-      message: "Users removed from this list successfully!",
-    },
+    added: res(true, "Users added to this list successfully!"),
+    removed: res(true, "Users removed from this list successfully!"),
   },
 };
 
 export const votationsResponses = {
-  notExists: {
-    success: false,
-    message: "Votation does not exist!",
-  },
-  exists: {
-    success: false,
-    message: "Votation already exists!",
-  },
-  created: {
-    success: true,
-    message: "Votation created successfully!",
-  },
-  updated: {
-    success: true,
-    message: "Votation updated successfully!",
-  },
-  deleted: {
-    success: true,
-    message: "Votation deleted successfully!",
-  },
+  notExists: res(false, "Votation does not exist!"),
+  exists: res(false, "Votation already exists!"),
+  created: res(true, "Votation created successfully!"),
+  updated: res(true, "Votation updated successfully!"),
+  deleted: res(true, "Votation deleted successfully!"),
   lists: {
-    added: {
-      success: true,
-      message: "Lists added to this votation successfully!",
-    },
-    removed: {
-      success: true,
-      message: "Lists removed from this votation successfully!",
-    },
+    added: res(true, "Lists added to this votation successfully!"),
+    removed: res(true, "Lists removed from this votation successfully!"),
   },
   users: {
-    added: {
-      success: true,
-      message: "Users added to this votation successfully!",
-    },
-    removed: {
-      success: true,
-      message: "Users removed from this votation successfully!",
-    },
+    added: res(true, "Users added to this votation successfully!"),
+    removed: res(true, "Users removed from this votation successfully!"),
   },
 };
