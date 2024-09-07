@@ -119,3 +119,46 @@ export const listsResponses = {
     },
   },
 };
+
+export const votationsResponses = {
+  notExists: {
+    success: false,
+    message: "Votation does not exist!",
+  },
+  exists: {
+    success: false,
+    message: "Votation already exists!",
+  },
+  created: {
+    success: true,
+    message: "Votation created successfully!",
+  },
+  updated: {
+    success: true,
+    message: "Votation updated successfully!",
+  },
+  deleted: {
+    success: true,
+    message: "Votation deleted successfully!",
+  },
+  lists: {
+    added: {
+      success: true,
+      message: "Lists added to this votation successfully!",
+    },
+    removed: {
+      success: true,
+      message: "Lists removed from this votation successfully!",
+    },
+  },
+  users: {
+    added: {
+      success: true,
+      message: "Users added to this votation successfully!",
+    },
+    removed: {
+      success: true,
+      message: "Users removed from this votation successfully!",
+    },
+  },
+};
