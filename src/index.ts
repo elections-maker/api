@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { custom } from "kittylog";
 import { showRoutes } from "hono/dev";
+import { appConfig } from "./config/app";
 import { serve } from "@hono/node-server";
 import { bootstrapApplication } from "./app";
 import { instrument } from "@fiberplane/hono-otel";
@@ -9,8 +10,8 @@ import { instrument } from "@fiberplane/hono-otel";
 const app = bootstrapApplication();
 
 const serverConfig = {
-  port: 8000,
-  hostname: "localhost",
+  port: appConfig.serverPort,
+  hostname: appConfig.serverHostname,
   fetch: instrument(app).fetch,
 };
 

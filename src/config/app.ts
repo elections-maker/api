@@ -21,6 +21,7 @@ export const appConfig = {
   databaseUrl: env.DATABASE_URL,
   baseOrgDatabaseUrl: env.BASE_ORG_DATABASE_URL,
   serverPort: env.SERVER_PORT,
+  serverHostname: env.SERVER_HOSTNAME,
   saltRounds: 10,
   frontendURL: env.FRONTEND_URL,
   jwtSecretKey: env.JWT_SECRET_KEY,
