@@ -5,7 +5,8 @@
     "start:dev": "tsx watch src/index.ts",
     "format": "prettier --write .",
     "prepare": "husky",
-    "db:generate:main": "prisma generate --schema prisma/schema.prisma"
+    "db:generate:main": "prisma generate --schema prisma/schema.prisma",
+    "db:generate:organization": "prisma generate --schema prisma/organization-schema.prisma"
   },
   "dependencies": {
     "@fiberplane/hono-otel": "0.2.0-beta.1",
