@@ -4,6 +4,7 @@ import { generateRouter } from "@/utils/router";
 import { getVotationService } from "./services/get.service";
 import { createVotationService } from "./services/create.service";
 import { updateVotationService } from "./services/update.service";
+import { deleteVotationService } from "./services/delete.service";
 import { getAllVotationsService } from "./services/get-all.service";
 
 export const votationsRouter = generateRouter([
@@ -16,6 +17,11 @@ export const votationsRouter = generateRouter([
     path: "/:votationId",
     method: "GET",
     handler: getVotationService,
+  },
+  {
+    path: "/:votationId",
+    method: "DELETE",
+    handler: deleteVotationService,
   },
   {
     path: "/:votationId",
