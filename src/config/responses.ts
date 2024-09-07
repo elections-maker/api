@@ -17,7 +17,7 @@ export const authResponses = {
   },
   verifySent: {
     success: true,
-    message: "email sent successfully, please verify your account!",
+    message: "Email sent successfully, please verify your account!",
   },
   authorized: {
     success: true,
@@ -40,7 +40,7 @@ export const authResponses = {
 export const organizationsResponses = {
   notExists: {
     success: false,
-    message: "Organization does not exists!",
+    message: "Organization does not exist!",
   },
   exists: {
     success: false,
