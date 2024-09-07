@@ -8,6 +8,7 @@ import { deleteVotationService } from "./services/delete.service";
 import { getAllVotationsService } from "./services/get-all.service";
 import { addVotationUsersService } from "./services/users/add.service";
 import { getVotationUsersService } from "./services/users/get-all.service";
+import { removeVotationUsersService } from "./services/users/remove.service";
 
 export const votationsRouter = generateRouter([
   {
@@ -47,5 +48,11 @@ export const votationsRouter = generateRouter([
     method: "POST",
     handler: addVotationUsersService,
     validators: [{ type: "json", schema: schemas.addVotationUsersBody }],
+  },
+  {
+    path: "/:votationId/users",
+    method: "PUT",
+    handler: removeVotationUsersService,
+    validators: [{ type: "json", schema: schemas.removeVotationUsersBody }],
   },
 ]);
