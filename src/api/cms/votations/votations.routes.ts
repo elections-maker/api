@@ -2,10 +2,10 @@ import * as schemas from "./votations.schemas";
 import { generateRouter } from "@/utils/router";
 
 import { getVotationService } from "./services/get.service";
+import { getVotationsService } from "./services/get-all.service";
 import { createVotationService } from "./services/create.service";
 import { updateVotationService } from "./services/update.service";
 import { deleteVotationService } from "./services/delete.service";
-import { getAllVotationsService } from "./services/get-all.service";
 import { addVotationUsersService } from "./services/users/add.service";
 import { addVotationListsService } from "./services/lists/add.service";
 import { getVotationUsersService } from "./services/users/get-all.service";
@@ -17,7 +17,7 @@ export const votationsRouter = generateRouter([
   {
     path: "/",
     method: "GET",
-    handler: getAllVotationsService,
+    handler: getVotationsService,
   },
   {
     path: "/:votationId",

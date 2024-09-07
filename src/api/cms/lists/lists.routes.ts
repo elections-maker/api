@@ -2,10 +2,10 @@ import * as schemas from "./lists.schemas";
 import { generateRouter } from "@/utils/router";
 
 import { getListService } from "./services/get.service";
+import { getListsService } from "./services/get-all.service";
 import { updateListService } from "./services/update.service";
 import { deleteListService } from "./services/delete.service";
 import { createListService } from "./services/create.service";
-import { getAllListsService } from "./services/get-all.service";
 import { addListUsersService } from "./services/users/add.service";
 import { getListUsersService } from "./services/users/get-all.service";
 import { removeListUsersService } from "./services/users/remove.service";
@@ -14,7 +14,7 @@ export const listsRouter = generateRouter([
   {
     path: "/",
     method: "GET",
-    handler: getAllListsService,
+    handler: getListsService,
   },
   {
     path: "/:listId",

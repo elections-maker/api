@@ -1,7 +1,7 @@
 import { orgFactory } from "@/api/factories";
 import { getPagination } from "@/utils/pagination";
 
-export const getAllListsService = orgFactory.createHandlers(async (c) => {
+export const getListsService = orgFactory.createHandlers(async (c) => {
   const { data, database } = c.get("orgData");
 
   const limit = parseInt(c.req.query("limit") || "15");
