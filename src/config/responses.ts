@@ -51,6 +51,7 @@ export const votationsResponses = {
   created: res(true, "Votation created successfully!"),
   updated: res(true, "Votation updated successfully!"),
   deleted: res(true, "Votation deleted successfully!"),
+  limitExceeded: res(false, "Votation limit reached for the current plan!"),
   lists: {
     added: res(true, "Lists added to this votation successfully!"),
     removed: res(true, "Lists removed from this votation successfully!"),
