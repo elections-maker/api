@@ -29,6 +29,7 @@ export const usersResponses = {
   deleted: res(true, "User deleted successfully!"),
   decoderNotExists: res(false, "Unsupported or missing file type!"),
   uploaded: res(true, "Users uploaded successfully!"),
+  limitExceeded: res(false, "User limit reached for the current plan!"),
 };
 
 export const listsResponses = {
