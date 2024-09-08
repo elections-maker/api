@@ -27,6 +27,8 @@ export const usersResponses = {
   created: res(true, "User created successfully!"),
   updated: res(true, "User updated successfully!"),
   deleted: res(true, "User deleted successfully!"),
+  decoderNotExists: res(false, "Unsupported or missing file type!"),
+  uploaded: res(true, "Users uploaded successfully!"),
 };
 
 export const listsResponses = {
