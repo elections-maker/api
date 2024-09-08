@@ -25,3 +25,5 @@ export type VerifyResetDecodedToken = {
 };
 
 export type Env<T> = { Variables: T };
+
+export type DecoderType = "csv" | "json" | "xlsx";
