@@ -38,6 +38,7 @@ export const listsResponses = {
   created: res(true, "List created successfully!"),
   updated: res(true, "List updated successfully!"),
   deleted: res(true, "List deleted successfully!"),
+  limitExceeded: res(false, "List limit reached for the current plan!"),
   candidates: {
     added: res(true, "Users added to this list successfully!"),
     removed: res(true, "Users removed from this list successfully!"),
