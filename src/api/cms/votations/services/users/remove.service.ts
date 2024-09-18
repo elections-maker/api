@@ -1,30 +1,23 @@
 import { orgFactory } from "@/api/factories";
+import { votations } from "../../votations.repo";
 import { votationsResponses } from "@/config/responses";
 import { RemoveVotationUsersBody } from "../../votations.schemas";
 
 export const removeVotationUsersService = orgFactory.createHandlers(async (c) => {
   const { users } = await c.req.json<RemoveVotationUsersBody>();
-  const { database } = c.get("orgData");
+  const { id: organizationId } = c.get("orgData");
   const { votationId } = c.req.param();
 
-  const fetchedVotation = await database.votation.findUnique({ where: { id: votationId } });
+  const usersToRemove = [];
+
+  const fetchedVotation = await votations.findById(organizationId, votationId);
   if (!fetchedVotation) return c.json(votationsResponses.notExists, 404);
 
   for (const userId of users) {
-    const fetchedUser = await database.user.findUnique({ where: { id: userId } });
-
-    if (fetchedUser) {
-      const existingUser = await database.votationUser.findUnique({
-        where: { userId_votationId: { votationId, userId: fetchedUser.id } },
-      });
-
-      if (existingUser) {
-        await database.votationUser.delete({
-          where: { userId_votationId: { votationId, userId: fetchedUser.id } },
-        });
-      }
-    }
+    const existingUser = await votations.users.findById(organizationId, votationId, userId);
+    if (existingUser) usersToRemove.push({ organizationId, votationId, userId });
   }
 
+  await votations.users.deleteMany(usersToRemove);
   return c.json(votationsResponses.users.removed, 201);
 });

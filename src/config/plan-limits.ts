@@ -10,5 +10,5 @@ export const planLimits = {
 
 export const checkPlanLimit = (field: Field, plan: Plan, total: number) => {
   const limit = planLimits[plan][field];
-  return total <= limit;
+  return total === limit;
 };

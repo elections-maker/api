@@ -1,17 +1,14 @@
-import { db } from "@/database";
 import { authFactory } from "@/api/factories";
+import { organizations } from "../organizations.repo";
 
 export const getOrganizationsService = authFactory.createHandlers(async (c) => {
-  const { userId } = c.get("userData");
+  const { id: userId } = c.get("userData");
 
-  const fetchedOrgs = await db.organization.findMany({
-    where: { userId },
-    orderBy: { updatedAt: "desc" },
-  });
+  const fetchedOrgs = await organizations.findMany(userId);
 
   return c.json({
     success: true,
     message: "Organizations fetched successfully",
-    data: { orgs: fetchedOrgs },
+    data: { organizations: fetchedOrgs },
   });
 });

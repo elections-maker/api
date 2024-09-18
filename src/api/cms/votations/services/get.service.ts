@@ -1,23 +1,17 @@
 import { orgFactory } from "@/api/factories";
+import { votations } from "../votations.repo";
 import { votationsResponses } from "@/config/responses";
 
 export const getVotationService = orgFactory.createHandlers(async (c) => {
-  const { database } = c.get("orgData");
+  const { id: organizationId } = c.get("orgData");
   const { votationId } = c.req.param();
 
-  const fetchedVotation = await database.votation.findUnique({
-    where: { id: votationId },
-    include: { _count: { select: { users: true } } },
-  });
-
+  const fetchedVotation = await votations.findById(organizationId, votationId);
   if (!fetchedVotation) return c.json(votationsResponses.notExists, 404);
-
-  const { _count, ...rest } = fetchedVotation;
-  const result = { ...rest, users: _count.users };
 
   return c.json({
     success: true,
     message: "Votation fetched successfully!",
-    data: { votation: result },
+    data: { votation: fetchedVotation },
   });
 });

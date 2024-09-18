@@ -4,8 +4,8 @@ import { generateRouter } from "@/utils/router";
 import { getUserService } from "./services/get.service";
 import { getUsersService } from "./services/get-all.service";
 import { updateUserService } from "./services/update.service";
-import { createUserService } from "./services/create.service";
 import { deleteUserService } from "./services/delete.service";
+import { createUserService } from "./services/create.service";
 import { uploadUsersService } from "./services/upload.service";
 
 export const usersRouter = generateRouter([

@@ -30,7 +30,7 @@ export const listsRouter = generateRouter([
     path: "/:listId",
     method: "PUT",
     handler: updateListService,
-    validators: [{ type: "json", schema: schemas.editListBody }],
+    validators: [{ type: "json", schema: schemas.updateListBody }],
   },
   {
     path: "/",

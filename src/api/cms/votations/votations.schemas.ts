@@ -7,7 +7,7 @@ export const createVotationBody = z.object({
   intralist: z.union([z.literal("yes"), z.literal("no")]),
 });
 
-export const editVotationBody = z.object({
+export const updateVotationBody = z.object({
   name: z.string(),
   minPreferences: z.number().min(1).max(15),
   maxPreferences: z.number().min(1).max(15),
@@ -31,7 +31,7 @@ export const removeVotationListsBody = z.object({
 });
 
 export type CreateVotationBody = z.infer<typeof createVotationBody>;
-export type EditVotationBody = z.infer<typeof editVotationBody>;
+export type UpdateVotationBody = z.infer<typeof updateVotationBody>;
 export type AddVotationUsersBody = z.infer<typeof addVotationUsersBody>;
 export type RemoveVotationUsersBody = z.infer<typeof removeVotationUsersBody>;
 export type AddVotationListsBody = z.infer<typeof addVotationListsBody>;

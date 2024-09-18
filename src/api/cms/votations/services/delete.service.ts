@@ -1,13 +1,14 @@
 import { orgFactory } from "@/api/factories";
-import { votationsResponses } from "@/config/responses";
+import { votations } from "../votations.repo";
+import { usersResponses } from "@/config/responses";
 
 export const deleteVotationService = orgFactory.createHandlers(async (c) => {
+  const { id: organizationId } = c.get("orgData");
   const { votationId } = c.req.param();
-  const { database } = c.get("orgData");
 
-  const fetchedVotation = await database.votation.findUnique({ where: { id: votationId } });
-  if (!fetchedVotation) return c.json(votationsResponses.notExists, 404);
+  const fetchedVotation = await votations.findById(organizationId, votationId);
+  if (!fetchedVotation) return c.json(usersResponses.notExists, 404);
 
-  await database.votation.delete({ where: { id: fetchedVotation.id } });
-  return c.json(votationsResponses.deleted, 200);
+  await votations.delete(organizationId, votationId);
+  return c.json(usersResponses.deleted, 200);
 });

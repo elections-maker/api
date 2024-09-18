@@ -1,23 +1,24 @@
 import { orgFactory } from "@/api/factories";
-import { EditVotationBody } from "../votations.schemas";
+import { votations } from "../votations.repo";
 import { votationsResponses } from "@/config/responses";
+import { UpdateVotationBody } from "../votations.schemas";
 
 export const updateVotationService = orgFactory.createHandlers(async (c) => {
-  const body = await c.req.json<EditVotationBody>();
-  const { database } = c.get("orgData");
+  const body = await c.req.json<UpdateVotationBody>();
+  const { id: organizationId } = c.get("orgData");
   const { votationId } = c.req.param();
 
-  const fetchedVotation = await database.votation.findUnique({ where: { id: votationId } });
+  const fetchedVotation = await votations.findById(organizationId, votationId);
   if (!fetchedVotation) return c.json(votationsResponses.notExists, 404);
 
-  if (body.name != fetchedVotation.name) {
-    const isNameExists = await database.votation.findUnique({ where: { name: body.name } });
-    if (isNameExists) return c.json(votationsResponses.exists, 409);
+  if (body.name !== fetchedVotation.name) {
+    const fetchedUser = await votations.findByName(organizationId, body.name);
+    if (fetchedUser) return c.json(votationsResponses.exists, 400);
   }
 
   const intralistValue = body.intralist === "yes";
   const updatedBody = { ...body, intralist: intralistValue };
-  await database.votation.update({ where: { id: fetchedVotation.id }, data: updatedBody });
 
+  await votations.update(organizationId, votationId, updatedBody);
   return c.json(votationsResponses.updated, 200);
 });

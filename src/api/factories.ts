@@ -1,17 +1,9 @@
+import { Env } from "@/types";
 import { createFactory } from "hono/factory";
-import { AccessDecodedToken, Env } from "@/types";
-import { Organization } from "@/database/generated/main";
-import { PrismaClient as OrgClient } from "@/database/generated/organization";
+import { Organization, User } from "@prisma/client";
 
-type AuthEnv = Env<{ userData: AccessDecodedToken }>;
-
-type OrgEnv = AuthEnv &
-  Env<{
-    orgData: {
-      database: OrgClient;
-      data: Organization;
-    };
-  }>;
+type AuthEnv = Env<{ userData: User }>;
+type OrgEnv = AuthEnv & Env<{ orgData: Organization }>;
 
 export const baseFactory = createFactory();
 

@@ -27,3 +27,11 @@ export type VerifyResetDecodedToken = {
 export type Env<T> = { Variables: T };
 
 export type DecoderType = "csv" | "json" | "xlsx";
+
+export type SortOptionsType = "added" | "not-added";
+
+export type SortOptions = {
+  limit: number;
+  offset: number;
+  type?: SortOptionsType;
+};

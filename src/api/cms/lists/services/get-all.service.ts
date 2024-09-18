@@ -1,34 +1,24 @@
+import { lists } from "../lists.repo";
 import { orgFactory } from "@/api/factories";
 import { getPagination } from "@/utils/pagination";
 
 export const getListsService = orgFactory.createHandlers(async (c) => {
-  const { data, database } = c.get("orgData");
+  const { id: organizationId, plan } = c.get("orgData");
 
   const limit = parseInt(c.req.query("limit") || "15");
   const page = parseInt(c.req.query("page") || "0");
 
-  const totalLists = await database.list.count();
+  const totalLists = await lists.count(organizationId);
   const { realPage, totalPages, offset } = getPagination(totalLists, limit, page);
-
-  const fetchedLists = await database.list.findMany({
-    skip: offset,
-    take: limit,
-    orderBy: { updatedAt: "desc" },
-    include: { _count: { select: { votations: true, candidates: true } } },
-  });
-
-  const result = fetchedLists.map((list) => {
-    const { _count, ...rest } = list;
-    return { ...rest, candidates: _count.candidates, votations: _count.votations };
-  });
+  const fetchedLists = await lists.findMany(organizationId, { limit, offset });
 
   return c.json({
     success: true,
     message: "Lists fetched successfully!",
     data: {
-      plan: data.plan,
+      plan,
       total: totalLists,
-      lists: result,
+      lists: fetchedLists,
       pagination: { totalPages, page: realPage },
     },
   });

@@ -1,6 +1,5 @@
-import { db } from "@/database";
+import { users } from "../auth.repo";
 import { hash } from "@/utils/bcrypt";
-import { appConfig } from "@/config/app";
 import { sendVerifyEmail } from "@/emails";
 import { generateToken } from "@/utils/jwt";
 import { baseFactory } from "@/api/factories";
@@ -10,15 +9,19 @@ import { authResponses } from "@/config/responses";
 export const registerService = baseFactory.createHandlers(async (c) => {
   const { email, username, password } = await c.req.json<RegisterBody>();
 
-  const whereQuery = { OR: [{ email }, { username }] };
-  const fetchedUser = await db.user.findFirst({ where: whereQuery });
+  const fetchedUser = await users.findByEmailUsername(email, username);
   if (fetchedUser) return c.json(authResponses.credentialsInvalid, 404);
 
-  const currentVerifyToken = await generateToken(appConfig.verifyToken, { email });
-  const userFields = { password: hash(password), currentVerifyToken };
+  const payload = { email };
+  const verifyToken = await generateToken(3600 * 60, payload);
+  await sendVerifyEmail(email, username, verifyToken);
 
-  await sendVerifyEmail(email, username, currentVerifyToken);
-  await db.user.create({ data: { email, username, ...userFields } });
+  await users.create({
+    email,
+    username,
+    password: hash(password),
+    currentVerifyToken: verifyToken,
+  });
 
   return c.json(authResponses.registered, 201);
 });

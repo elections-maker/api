@@ -1,30 +1,23 @@
+import { lists } from "../../lists.repo";
 import { orgFactory } from "@/api/factories";
-import { RemoveListUsersBody } from "../../lists.schemas";
 import { listsResponses } from "@/config/responses";
+import { RemoveListUsersBody } from "../../lists.schemas";
 
 export const removeListUsersService = orgFactory.createHandlers(async (c) => {
-  const { users } = await c.req.json<RemoveListUsersBody>();
-  const { database } = c.get("orgData");
+  const { data } = await c.req.json<RemoveListUsersBody>();
+  const { id: organizationId } = c.get("orgData");
   const { listId } = c.req.param();
 
-  const fetchedList = await database.list.findUnique({ where: { id: listId } });
+  const fetchedList = await lists.findById(organizationId, listId);
   if (!fetchedList) return c.json(listsResponses.notExists, 404);
 
-  for (const userId of users) {
-    const fetchedUser = await database.user.findUnique({ where: { id: userId } });
+  const candidatesToRemove = [];
 
-    if (fetchedUser) {
-      const existingCandidate = await database.listCandidate.findUnique({
-        where: { listId_userId: { listId, userId: fetchedUser.id } },
-      });
-
-      if (existingCandidate) {
-        await database.listCandidate.delete({
-          where: { listId_userId: { listId, userId: fetchedUser.id } },
-        });
-      }
-    }
+  for (const userId of data) {
+    const existingCandidate = await lists.users.findById(organizationId, listId, userId);
+    if (existingCandidate) candidatesToRemove.push({ organizationId, listId, userId });
   }
 
-  return c.json(listsResponses.candidates.removed, 200);
+  await lists.users.deleteMany(candidatesToRemove);
+  return c.json(listsResponses.candidates.removed, 201);
 });

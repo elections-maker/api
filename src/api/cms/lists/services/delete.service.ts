@@ -1,13 +1,14 @@
+import { lists } from "../lists.repo";
 import { orgFactory } from "@/api/factories";
 import { listsResponses } from "@/config/responses";
 
 export const deleteListService = orgFactory.createHandlers(async (c) => {
+  const { id: organizationId } = c.get("orgData");
   const { listId } = c.req.param();
-  const { database } = c.get("orgData");
 
-  const fetchedList = await database.list.findUnique({ where: { id: listId } });
+  const fetchedList = await lists.findById(organizationId, listId);
   if (!fetchedList) return c.json(listsResponses.notExists, 404);
 
-  await database.list.delete({ where: { id: listId } });
+  await lists.delete(organizationId, listId);
   return c.json(listsResponses.deleted, 200);
 });

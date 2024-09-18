@@ -1,19 +1,23 @@
+import { users } from "../users.repo";
+import { hash } from "@/utils/bcrypt";
 import { orgFactory } from "@/api/factories";
 import { CreateUserBody } from "../users.schemas";
 import { usersResponses } from "@/config/responses";
 import { checkPlanLimit } from "@/config/plan-limits";
 
 export const createUserService = orgFactory.createHandlers(async (c) => {
+  const { id: organizationId, plan } = c.get("orgData");
   const body = await c.req.json<CreateUserBody>();
-  const { database, data } = c.get("orgData");
 
-  const fetchedUser = await database.user.findUnique({ where: { email: body.email } });
+  const fetchedUser = await users.findByEmail(organizationId, body.email);
   if (fetchedUser) return c.json(usersResponses.exists, 409);
 
-  const totalUsers = await database.user.count();
-  const limitExceeded = checkPlanLimit("maxUsers", data.plan, totalUsers);
+  const totalUsers = await users.count(organizationId);
+  const limitExceeded = checkPlanLimit("maxUsers", plan, totalUsers);
   if (limitExceeded) return c.json(usersResponses.limitExceeded, 403);
 
-  await database.user.create({ data: body });
+  const userFields = { ...body, password: hash(body.password) };
+  await users.create({ organizationId, ...userFields });
+
   return c.json(usersResponses.created, 201);
 });
