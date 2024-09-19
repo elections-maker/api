@@ -1,5 +1,6 @@
 import { compare } from "bcrypt";
 import { users } from "../auth.repo";
+import { decrypt } from "@/utils/crypto";
 import { sendVerifyEmail } from "@/emails";
 import { LoginBody } from "../auth.schemas";
 import { generateToken } from "@/utils/jwt";
@@ -20,7 +21,7 @@ export const loginService = baseFactory.createHandlers(async (c) => {
       const payload = { email: fetchedUser.email };
       const verifyToken = await generateToken(3600 * 60, payload);
 
-      await sendVerifyEmail(fetchedUser.email, username, verifyToken);
+      await sendVerifyEmail(decrypt(fetchedUser.email), username, verifyToken);
       await users.update(fetchedUser.id, { currentVerifyToken: verifyToken });
 
       return c.json(authResponses.verifySent, 200);

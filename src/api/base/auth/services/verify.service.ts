@@ -1,4 +1,5 @@
 import { users } from "../auth.repo";
+import { encrypt } from "@/utils/crypto";
 import { baseFactory } from "@/api/factories";
 import { VerifyResetDecodedToken } from "@/types";
 import { authResponses } from "@/config/responses";
@@ -9,7 +10,7 @@ export const verifyAccountService = baseFactory.createHandlers(async (c) => {
 
   try {
     const decoded = await verifyToken<VerifyResetDecodedToken>(token);
-    if (decoded.email !== email) return c.json(authResponses.tokenInvalid, 400);
+    if (decoded.email !== encrypt(email)) return c.json(authResponses.tokenInvalid, 400);
 
     const fetchedUser = await users.findByEmail(decoded.email);
     if (!fetchedUser) return c.json(authResponses.tokenInvalid, 404);
