@@ -10,6 +10,8 @@ import { usersRouter } from "./cms/users/users.routes";
 import { listsRouter } from "./cms/lists/lists.routes";
 import { votationsRouter } from "./cms/votations/votations.routes";
 
+import { clientRouter } from "./client/client.routes";
+
 export const appRouter = new Hono().basePath("/v1");
 
 appRouter.use("admin/organizations/*", authMiddleware);
@@ -21,3 +23,5 @@ appRouter.route("admin/organizations", organizationsRouter);
 appRouter.route("admin/organizations/:organizationId/users", usersRouter);
 appRouter.route("admin/organizations/:organizationId/lists", listsRouter);
 appRouter.route("admin/organizations/:organizationId/votations", votationsRouter);
+
+appRouter.route("client", clientRouter);
