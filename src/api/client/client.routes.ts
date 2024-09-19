@@ -5,6 +5,7 @@ import { clientMiddleware } from "@/middlewares/client.middleware";
 
 import { meService } from "./services/me.service";
 import { loginService } from "./services/login.service";
+import { getUserVotationsService } from "./services/get-all.service";
 
 export const clientRouter = generateRouter([
   {
@@ -17,6 +18,12 @@ export const clientRouter = generateRouter([
     path: "/auth/me",
     method: "GET",
     handler: meService,
+    middlewares: [clientMiddleware],
+  },
+  {
+    path: "/",
+    method: "GET",
+    handler: getUserVotationsService,
     middlewares: [clientMiddleware],
   },
 ]);
