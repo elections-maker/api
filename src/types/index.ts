@@ -24,6 +24,11 @@ export type VerifyResetDecodedToken = {
   email: string;
 };
 
+export type ClientAccessDecodedToken = {
+  userId: string;
+  organizationId: string;
+};
+
 export type Env<T> = { Variables: T };
 
 export type DecoderType = "csv" | "json" | "xlsx";
