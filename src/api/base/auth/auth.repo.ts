@@ -1,4 +1,8 @@
 import { prisma } from "@/database";
+import { Prisma } from "@prisma/client";
+
+type CreateUserInput = Prisma.UserUncheckedCreateInput;
+type EditUserInput = Prisma.UserUncheckedUpdateInput;
 
 export const users = {
   findByEmailUsername: (email: string, username: string) => {
@@ -13,10 +17,10 @@ export const users = {
   findById: (userId: string) => {
     return prisma.user.findUnique({ where: { id: userId } });
   },
-  create: (data: any) => {
+  create: (data: CreateUserInput) => {
     return prisma.user.create({ data });
   },
-  update: (userId: string, data: any) => {
+  update: (userId: string, data: EditUserInput) => {
     return prisma.user.update({ where: { id: userId }, data });
   },
   delete: (userId: string) => {
