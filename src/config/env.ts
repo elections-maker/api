@@ -7,7 +7,7 @@ const envSchema = z.object({
 
   JWT_SECRET_KEY: z.string().min(32),
   ENC_KEY: z.string().min(32),
-  IV: z.string().min(32),
+  IV: z.string().min(16),
 
   EMAIL_HOST: z.string(),
   EMAIL_SERVICE: z.string(),
