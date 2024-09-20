@@ -12,10 +12,15 @@ export const errorHandler = (_: Error | HTTPResponseError, c: Context) => {
   return c.json({ success: false, message: "Internal Server Error!" }, 500);
 };
 
+export const notFoundHandler = (c: Context) => {
+  return c.json({ success: false, message: "Api endpoint not found!" }, 404);
+};
+
 export const bootstrapApplication = () => {
   return new Hono()
     .use(cors(appConfig.corsConfig))
     .all("/", baseHandler)
     .onError(errorHandler)
+    .notFound(notFoundHandler)
     .route("/api", appRouter);
 };
