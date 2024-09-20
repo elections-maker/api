@@ -4,9 +4,10 @@ import { authMiddleware } from "@/middlewares/auth.middleware";
 
 import { meService } from "./services/me.service";
 import { loginService } from "./services/login.service";
+import { resetService } from "./services/reset.service";
+import { forgotService } from "./services/forgot.service";
 import { registerService } from "./services/register.service";
 import { verifyAccountService } from "./services/verify.service";
-import { forgotService } from "./services/forgot.service";
 
 export const authRouter = generateRouter([
   {
@@ -37,5 +38,11 @@ export const authRouter = generateRouter([
     method: "POST",
     handler: forgotService,
     validators: [{ type: "json", schema: schemas.forgotBody }],
+  },
+  {
+    path: "/reset",
+    method: "POST",
+    handler: resetService,
+    validators: [{ type: "json", schema: schemas.resetBody }],
   },
 ]);

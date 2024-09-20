@@ -11,6 +11,7 @@ export const authResponses = {
   verified: res(true, "Account verified successfully!"),
   logged: res(true, "Login completed successfully!"),
   forgotted: res(true, "Email sent successfully, please reset your password!"),
+  resetted: res(true, "Password resetted successfully!"),
 };
 
 export const organizationsResponses = {
