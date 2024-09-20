@@ -19,6 +19,7 @@ export const appConfig = {
   corsConfig,
   smtpConfig,
   databaseUrl: env.DATABASE_URL,
+  rabbitmqUrl: env.RABBITMQ_URL,
   serverPort: env.SERVER_PORT,
   serverHostname: env.SERVER_HOSTNAME,
   saltRounds: 10,

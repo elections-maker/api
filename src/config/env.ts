@@ -17,6 +17,7 @@ const envSchema = z.object({
   EMAIL_PASSWORD: z.string(),
 
   DATABASE_URL: z.string(),
+  RABBITMQ_URL: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
