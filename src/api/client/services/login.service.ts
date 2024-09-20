@@ -1,3 +1,4 @@
+import { encrypt } from "@/utils/crypto";
 import { compare } from "@/utils/bcrypt";
 import { generateToken } from "@/utils/jwt";
 import { LoginBody } from "../client.schemas";
@@ -9,7 +10,7 @@ export const loginService = clientFactory.createHandlers(async (c) => {
   const { email, password } = await c.req.json<LoginBody>();
   const { organizationId } = c.req.query();
 
-  const fetchedUser = await users.findByEmail(organizationId, email);
+  const fetchedUser = await users.findByEmail(organizationId, encrypt(email));
   if (!fetchedUser) return c.json(authResponses.credentialsInvalid, 404);
 
   const passwordMatch = compare(fetchedUser.password, password);
