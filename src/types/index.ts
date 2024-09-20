@@ -1,6 +1,7 @@
 import { ZodType } from "zod";
 import { MiddlewareHandler } from "hono";
 import { H, ValidationTargets } from "hono/types";
+import { ConsumerHandler, ConsumerProps } from "rabbitmq-client";
 
 export type RouteData = {
   path: string;
@@ -8,6 +9,12 @@ export type RouteData = {
   validators?: { type: keyof ValidationTargets; schema: ZodType }[];
   method: "GET" | "POST" | "PUT" | "DELETE";
   middlewares?: MiddlewareHandler[];
+};
+
+export type ConsumerData = {
+  props: ConsumerProps;
+  handler: ConsumerHandler;
+  errroHandler?: (err: unknown) => void;
 };
 
 export type EmailOptions = {
