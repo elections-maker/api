@@ -1,6 +1,7 @@
 import { users } from "../users.repo";
 import { hash } from "@/utils/bcrypt";
 import { DecoderType } from "@/types";
+import { encrypt } from "@/utils/crypto";
 import { decoders } from "@/utils/decoders";
 import { orgFactory } from "@/api/factories";
 import { OrganizationUser } from "@prisma/client";
@@ -21,8 +22,15 @@ export const uploadUsersService = orgFactory.createHandlers(async (c) => {
   const limitExceeded = checkPlanLimit("maxUsers", plan, totalUsers + usersData.length);
   if (limitExceeded) return c.json(usersResponses.limitExceeded, 403);
 
-  const usersFields = usersData.map((user) => ({ ...user, password: hash(user.password) }));
-  await users.createMany(usersFields);
+  await users.createMany(
+    usersData.map((user) => {
+      return {
+        ...user,
+        email: encrypt(user.email),
+        password: hash(user.password),
+      };
+    }),
+  );
 
   return c.json(usersResponses.uploaded, 200);
 });
