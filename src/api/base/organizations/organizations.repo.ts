@@ -1,6 +1,8 @@
 import { prisma } from "@/database";
 import { Prisma } from "@prisma/client";
 
+type CreateOrganizationInput = Prisma.OrganizationUncheckedCreateInput;
+
 export const organizations = {
   findMany: (userId: string) => {
     return prisma.organization.findMany({ where: { userId } });
@@ -11,7 +13,7 @@ export const organizations = {
   findByName: (userId: string, name: string) => {
     return prisma.organization.findFirst({ where: { userId, name } });
   },
-  create: (data: Prisma.OrganizationUncheckedCreateInput) => {
+  create: (data: CreateOrganizationInput) => {
     return prisma.organization.create({ data });
   },
   delete: (userId: string, organizationId: string) => {
