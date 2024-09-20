@@ -6,6 +6,7 @@ import { meService } from "./services/me.service";
 import { loginService } from "./services/login.service";
 import { registerService } from "./services/register.service";
 import { verifyAccountService } from "./services/verify.service";
+import { forgotService } from "./services/forgot.service";
 
 export const authRouter = generateRouter([
   {
@@ -30,5 +31,11 @@ export const authRouter = generateRouter([
     method: "GET",
     handler: meService,
     middlewares: [authMiddleware],
+  },
+  {
+    path: "/forgot",
+    method: "POST",
+    handler: forgotService,
+    validators: [{ type: "json", schema: schemas.forgotBody }],
   },
 ]);

@@ -10,6 +10,7 @@ export const authResponses = {
   registered: res(true, "Registration completed successfully!"),
   verified: res(true, "Account verified successfully!"),
   logged: res(true, "Login completed successfully!"),
+  forgotted: res(true, "Email sent successfully, please reset your password!"),
 };
 
 export const organizationsResponses = {
