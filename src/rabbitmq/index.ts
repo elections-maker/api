@@ -4,3 +4,5 @@ import { RabbitMQ } from "@/utils/rabbitmq";
 export const rabbit = new RabbitMQ(appConfig.rabbitmqUrl)
   .on("error", (err) => console.log(err))
   .on("connection", () => console.log("connection successfully (re)established"));
+
+export const publisher = rabbit.createPublisher({ confirm: true });
