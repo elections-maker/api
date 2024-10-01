@@ -5,6 +5,7 @@ import { getOrganizationService } from "./services/get.service";
 import { getOrganizationsService } from "./services/get-all.service";
 import { createOrganizationService } from "./services/create.service";
 import { deleteOrganizationService } from "./services/delete.service";
+import { updateOrganizationService } from "./services/update.service";
 
 export const organizationsRouter = generateRouter([
   {
@@ -21,6 +22,12 @@ export const organizationsRouter = generateRouter([
     path: "/:organizationId",
     method: "DELETE",
     handler: deleteOrganizationService,
+  },
+  {
+    path: "/:organizationId",
+    method: "PUT",
+    handler: updateOrganizationService,
+    validators: [{ type: "json", schema: schemas.updateOrgBody }],
   },
   {
     path: "/",

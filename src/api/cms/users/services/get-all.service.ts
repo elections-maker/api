@@ -6,7 +6,7 @@ import { getPagination } from "@/utils/pagination";
 export const getUsersService = orgFactory.createHandlers(async (c) => {
   const { id: organizationId, plan } = c.get("orgData");
 
-  const limit = parseInt(c.req.query("limit") || "15");
+  const limit = parseInt(c.req.query("limit") || "17");
   const page = parseInt(c.req.query("page") || "0");
 
   const totalUsers = await users.count(organizationId);
@@ -14,10 +14,7 @@ export const getUsersService = orgFactory.createHandlers(async (c) => {
   const fetchedUsers = await users.findMany(organizationId, { limit, offset });
 
   const returningData = fetchedUsers.map((user) => {
-    return {
-      ...user,
-      email: decrypt(user.email),
-    };
+    return { ...user, email: decrypt(user.email) };
   });
 
   return c.json({

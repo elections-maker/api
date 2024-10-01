@@ -6,7 +6,9 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev"
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:prod": "prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@fiberplane/hono-otel": "0.2.0-beta.1",

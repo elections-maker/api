@@ -40,7 +40,7 @@ model Organization {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  owner User @relation(fields: [userId], references: [id])
+  owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   users          OrganizationUser[]
   votations      OrganizationVotation[]
@@ -54,17 +54,20 @@ model Organization {
 }
 
 model OrganizationUser {
-  id             String @id @default(uuid())
-  organizationId String @map("organization_id")
-  firstName      String @map("first_name")
-  lastName       String @map("last_name")
-  email          String
-  password       String
+  id             String    @id @default(uuid())
+  organizationId String    @map("organization_id")
+  firstName      String    @map("first_name")
+  lastName       String    @map("last_name")
+  email          String    @map("email")
+  password       String?
+  verified       Boolean   @default(false)
+  verifyToken    String?   @map("verify_token")
+  expiresAt      DateTime? @map("verify_token_expires_at")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   candidatures OrganizationListCandidate[]
   votations    OrganziationVotationUser[]
@@ -85,7 +88,7 @@ model OrganizationVotation {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   users OrganziationVotationUser[]
   lists OrganizationVotationList[]
@@ -102,7 +105,7 @@ model OrganizationList {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   candidates OrganizationListCandidate[]
   votations  OrganizationVotationList[]
@@ -117,7 +120,7 @@ model OrganziationVotationUser {
   userId         String  @map("user_id")
   hasVoted       Boolean @default(false) @map("has_voted")
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   votation OrganizationVotation @relation(fields: [votationId], references: [id], onDelete: Cascade)
   user     OrganizationUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -131,7 +134,7 @@ model OrganizationVotationList {
   votationId     String @map("votation_id")
   listId         String @map("list_id")
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   votation OrganizationVotation @relation(fields: [votationId], references: [id], onDelete: Cascade)
   list     OrganizationList     @relation(fields: [listId], references: [id], onDelete: Cascade)
@@ -146,7 +149,7 @@ model OrganizationListCandidate {
   userId         String @map("user_id")
   votes          Int    @default(0)
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   list OrganizationList @relation(fields: [listId], references: [id], onDelete: Cascade)
   user OrganizationUser @relation(fields: [userId], references: [id], onDelete: Cascade)

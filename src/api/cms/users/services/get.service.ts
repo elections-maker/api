@@ -13,6 +13,8 @@ export const getUserService = orgFactory.createHandlers(async (c) => {
   const returningData = {
     ...fetchedUser,
     email: decrypt(fetchedUser.email),
+    votations: fetchedUser.votations.map(({ votation }) => votation),
+    candidatures: fetchedUser.candidatures.map(({ list }) => list),
   };
 
   return c.json({

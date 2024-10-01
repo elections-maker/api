@@ -32,6 +32,8 @@ export const usersResponses = {
   decoderNotExists: res(false, "Unsupported or missing file type!"),
   uploaded: res(true, "Users uploaded successfully!"),
   limitExceeded: res(false, "User limit reached for the current plan!"),
+  alreadyInvited: res(false, "User already invited!"),
+  invited: res(true, "User invited successfully!"),
 };
 
 export const listsResponses = {
@@ -44,6 +46,8 @@ export const listsResponses = {
   candidates: {
     added: res(true, "Users added to this list successfully!"),
     removed: res(true, "Users removed from this list successfully!"),
+    addedPartially: res(true, "Attention, some users are not added because they are not valid!"),
+    removedPartially: res(true, "Attention, some users are not removed because they are not valid!!"),
   },
 };
 
@@ -57,9 +61,17 @@ export const votationsResponses = {
   lists: {
     added: res(true, "Lists added to this votation successfully!"),
     removed: res(true, "Lists removed from this votation successfully!"),
+    addedPartially: res(true, "Attention, some lists are not added because they are not valid!"),
+    removedPartially: res(true, "Attention, some lists are not removed because they are not valid!!"),
   },
   users: {
     added: res(true, "Users added to this votation successfully!"),
     removed: res(true, "Users removed from this votation successfully!"),
+    addedPartially: res(true, "Attention, some users are not added because they are not valid!"),
+    removedPartially: res(true, "Attention, some users are not removed because they are not valid!!"),
   },
+};
+
+export const clientRespones = {
+  joined: res(true, "Joined to the organization successfully!"),
 };

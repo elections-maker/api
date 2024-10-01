@@ -35,7 +35,10 @@ CREATE TABLE "organization_users" (
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
+    "password" TEXT,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
+    "verify_token" TEXT,
+    "verify_token_expires_at" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -116,19 +119,19 @@ CREATE INDEX "organization_votations_organization_id_idx" ON "organization_votat
 CREATE INDEX "organization_lists_organization_id_idx" ON "organization_lists"("organization_id");
 
 -- AddForeignKey
-ALTER TABLE "organizations" ADD CONSTRAINT "organizations_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organizations" ADD CONSTRAINT "organizations_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_users" ADD CONSTRAINT "organization_users_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_users" ADD CONSTRAINT "organization_users_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_votations" ADD CONSTRAINT "organization_votations_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_votations" ADD CONSTRAINT "organization_votations_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_lists" ADD CONSTRAINT "organization_lists_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_lists" ADD CONSTRAINT "organization_lists_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_votation_users" ADD CONSTRAINT "organization_votation_users_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_votation_users" ADD CONSTRAINT "organization_votation_users_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "organization_votation_users" ADD CONSTRAINT "organization_votation_users_votation_id_fkey" FOREIGN KEY ("votation_id") REFERENCES "organization_votations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -137,7 +140,7 @@ ALTER TABLE "organization_votation_users" ADD CONSTRAINT "organization_votation_
 ALTER TABLE "organization_votation_users" ADD CONSTRAINT "organization_votation_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "organization_users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_votation_lists" ADD CONSTRAINT "organization_votation_lists_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_votation_lists" ADD CONSTRAINT "organization_votation_lists_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "organization_votation_lists" ADD CONSTRAINT "organization_votation_lists_votation_id_fkey" FOREIGN KEY ("votation_id") REFERENCES "organization_votations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -146,7 +149,7 @@ ALTER TABLE "organization_votation_lists" ADD CONSTRAINT "organization_votation_
 ALTER TABLE "organization_votation_lists" ADD CONSTRAINT "organization_votation_lists_list_id_fkey" FOREIGN KEY ("list_id") REFERENCES "organization_lists"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "organization_list_candidates" ADD CONSTRAINT "organization_list_candidates_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "organization_list_candidates" ADD CONSTRAINT "organization_list_candidates_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "organization_list_candidates" ADD CONSTRAINT "organization_list_candidates_list_id_fkey" FOREIGN KEY ("list_id") REFERENCES "organization_lists"("id") ON DELETE CASCADE ON UPDATE CASCADE;

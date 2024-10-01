@@ -15,8 +15,9 @@ export const createVotationService = orgFactory.createHandlers(async (c) => {
   const limitExceeded = checkPlanLimit("maxVotations", plan, totalVotations);
   if (limitExceeded) return c.json(votationsResponses.limitExceeded, 403);
 
-  const intralistValue = body.intralist === "yes";
-  const createBody = { ...body, organizationId, intralist: intralistValue };
+  const opened = body.opened === "yes";
+  const intralist = body.intralist === "yes";
+  const createBody = { ...body, organizationId, intralist, opened };
 
   await votations.create(createBody);
   return c.json(votationsResponses.created, 201);

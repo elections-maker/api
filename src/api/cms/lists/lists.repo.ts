@@ -13,13 +13,17 @@ export const lists = {
       skip: options.offset,
       take: options.limit,
       orderBy: { updatedAt: "desc" },
+      include: { _count: { select: { votations: true, candidates: true } } },
     });
   },
   count: (organizationId: string) => {
     return prisma.organizationList.count({ where: { organizationId } });
   },
   findById: (organizationId: string, listId: string) => {
-    return prisma.organizationList.findUnique({ where: { organizationId, id: listId } });
+    return prisma.organizationList.findUnique({
+      where: { organizationId, id: listId },
+      include: { _count: { select: { votations: true, candidates: true } } },
+    });
   },
   findByName: (organizationId: string, name: string) => {
     return prisma.organizationList.findFirst({ where: { organizationId, name } });
@@ -57,6 +61,7 @@ export const lists = {
         skip: options.offset,
         take: options.limit,
         orderBy: { updatedAt: "desc" },
+        include: { candidatures: { where: { listId }, select: { votes: true } } },
       });
     },
     createMany: (data: AddUserInput[]) => {

@@ -16,13 +16,17 @@ export const votations = {
       skip: options.offset,
       take: options.limit,
       orderBy: { updatedAt: "desc" },
+      include: { _count: { select: { lists: true, users: true } } },
     });
   },
   count: (organizationId: string) => {
     return prisma.organizationVotation.count({ where: { organizationId } });
   },
   findById: (organizationId: string, votationId: string) => {
-    return prisma.organizationVotation.findUnique({ where: { organizationId, id: votationId } });
+    return prisma.organizationVotation.findUnique({
+      where: { organizationId, id: votationId },
+      include: { _count: { select: { lists: true, users: true } } },
+    });
   },
   findByName: (organizationId: string, name: string) => {
     return prisma.organizationVotation.findFirst({ where: { organizationId, name } });
@@ -60,6 +64,7 @@ export const votations = {
         skip: options.offset,
         take: options.limit,
         orderBy: { updatedAt: "desc" },
+        include: { votations: { where: { votationId }, select: { hasVoted: true } } },
       });
     },
     createMany: (data: AddUserInput[]) => {
@@ -93,6 +98,7 @@ export const votations = {
         skip: options.offset,
         take: options.limit,
         orderBy: { updatedAt: "desc" },
+        include: { _count: { select: { candidates: true } } },
       });
     },
     createMany: (data: AddListInput[]) => {

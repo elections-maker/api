@@ -18,6 +18,14 @@ export const removeListUsersService = orgFactory.createHandlers(async (c) => {
     if (existingCandidate) candidatesToRemove.push({ organizationId, listId, userId });
   }
 
-  await lists.users.deleteMany(candidatesToRemove);
-  return c.json(listsResponses.candidates.removed, 201);
+  if (candidatesToRemove.length) {
+    await lists.users.deleteMany(candidatesToRemove);
+  }
+
+  return c.json(
+    candidatesToRemove.length === data.length
+      ? listsResponses.candidates.removed
+      : listsResponses.candidates.removedPartially,
+    200,
+  );
 });

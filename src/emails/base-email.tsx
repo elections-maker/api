@@ -2,7 +2,7 @@ import * as REC from "@react-email/components";
 
 type Props = { title: string; btnLabel: string; username: string; token: string };
 
-export const AuthEmailTemplate = ({ title, btnLabel, username, token }: Props) => (
+export const BaseEmailTemplate = ({ title, btnLabel, username, token }: Props) => (
   <REC.Html>
     <REC.Head />
     <REC.Preview>{title}</REC.Preview>
@@ -30,8 +30,7 @@ export const AuthEmailTemplate = ({ title, btnLabel, username, token }: Props) =
 const styles = {
   main: {
     backgroundColor: "#f6f9fc",
-    fontFamily:
-      '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
+    fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
     padding: "40px 0",
   },
 

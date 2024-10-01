@@ -16,9 +16,10 @@ export const updateVotationService = orgFactory.createHandlers(async (c) => {
     if (fetchedUser) return c.json(votationsResponses.exists, 400);
   }
 
-  const intralistValue = body.intralist === "yes";
-  const updatedBody = { ...body, intralist: intralistValue };
+  const opened = body.opened === "yes";
+  const intralist = body.intralist === "yes";
+  const updateBody = { ...body, organizationId, intralist, opened };
 
-  await votations.update(organizationId, votationId, updatedBody);
+  await votations.update(organizationId, votationId, updateBody);
   return c.json(votationsResponses.updated, 200);
 });

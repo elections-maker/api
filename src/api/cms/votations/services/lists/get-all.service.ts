@@ -9,7 +9,7 @@ export const getVotationListsService = orgFactory.createHandlers(async (c) => {
   const { votationId } = c.req.param();
 
   const type = (c.req.query("type") || "added") as SortOptionsType;
-  const limit = parseInt(c.req.query("limit") || "15");
+  const limit = parseInt(c.req.query("limit") || "17");
   const page = parseInt(c.req.query("page") || "0");
 
   const fetchedVotation = await votations.findById(organizationId, votationId);
@@ -24,7 +24,7 @@ export const getVotationListsService = orgFactory.createHandlers(async (c) => {
     message: "Lists fetched successfully!",
     data: {
       total: totalLists,
-      users: fetchedLists,
+      lists: fetchedLists,
       pagination: { totalPages, page: realPage },
     },
   });

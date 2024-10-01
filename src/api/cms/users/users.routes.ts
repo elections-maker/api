@@ -7,6 +7,7 @@ import { updateUserService } from "./services/update.service";
 import { deleteUserService } from "./services/delete.service";
 import { createUserService } from "./services/create.service";
 import { uploadUsersService } from "./services/upload.service";
+import { inviteUserService } from "./services/invite.service";
 
 export const usersRouter = generateRouter([
   {
@@ -23,6 +24,11 @@ export const usersRouter = generateRouter([
     path: "/:userId",
     method: "DELETE",
     handler: deleteUserService,
+  },
+  {
+    path: "/invite/:userId",
+    method: "GET",
+    handler: inviteUserService,
   },
   {
     path: "/:userId",

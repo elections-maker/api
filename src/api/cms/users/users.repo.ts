@@ -18,7 +18,13 @@ export const users = {
     return prisma.organizationUser.count({ where: { organizationId } });
   },
   findById: (organizationId: string, userId: string) => {
-    return prisma.organizationUser.findUnique({ where: { organizationId, id: userId } });
+    return prisma.organizationUser.findUnique({
+      where: { organizationId, id: userId },
+      include: {
+        votations: { select: { votation: { select: { id: true, name: true } } } },
+        candidatures: { select: { list: { select: { id: true, name: true } } } },
+      },
+    });
   },
   findByEmail: (organizationId: string, email: string) => {
     return prisma.organizationUser.findFirst({ where: { organizationId, email } });

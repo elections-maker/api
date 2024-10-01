@@ -13,7 +13,9 @@ export const loginService = clientFactory.createHandlers(async (c) => {
   const fetchedUser = await users.findByEmail(organizationId, encrypt(email));
   if (!fetchedUser) return c.json(authResponses.credentialsInvalid, 404);
 
-  const passwordMatch = compare(fetchedUser.password, password);
+  if (!fetchedUser.verified) return c.json(authResponses.notVerified, 400);
+
+  const passwordMatch = compare(fetchedUser.password!, password);
   if (!passwordMatch) return c.json(authResponses.credentialsInvalid, 401);
 
   const payload = { userId: fetchedUser.id, organizationId };

@@ -5,6 +5,7 @@ export const createVotationBody = z.object({
   minPreferences: z.number().min(1).max(15),
   maxPreferences: z.number().min(1).max(15),
   intralist: z.union([z.literal("yes"), z.literal("no")]),
+  opened: z.union([z.literal("yes"), z.literal("no")]),
 });
 
 export const updateVotationBody = z.object({
@@ -12,22 +13,23 @@ export const updateVotationBody = z.object({
   minPreferences: z.number().min(1).max(15),
   maxPreferences: z.number().min(1).max(15),
   intralist: z.union([z.literal("yes"), z.literal("no")]),
+  opened: z.union([z.literal("yes"), z.literal("no")]),
 });
 
 export const addVotationUsersBody = z.object({
-  users: z.array(z.string().uuid()),
+  data: z.array(z.string().uuid()).min(1),
 });
 
 export const removeVotationUsersBody = z.object({
-  users: z.array(z.string().uuid()),
+  data: z.array(z.string().uuid()).min(1),
 });
 
 export const addVotationListsBody = z.object({
-  lists: z.array(z.string().uuid()),
+  data: z.array(z.string().uuid()),
 });
 
 export const removeVotationListsBody = z.object({
-  lists: z.array(z.string().uuid()),
+  data: z.array(z.string().uuid()),
 });
 
 export type CreateVotationBody = z.infer<typeof createVotationBody>;

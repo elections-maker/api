@@ -1,5 +1,5 @@
-import { compare } from "bcrypt";
 import { users } from "../auth.repo";
+import { compare } from "@/utils/bcrypt";
 import { decrypt } from "@/utils/crypto";
 import { sendVerifyEmail } from "@/emails";
 import { LoginBody } from "../auth.schemas";

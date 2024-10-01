@@ -1,5 +1,6 @@
 import { lists } from "../../lists.repo";
 import { orgFactory } from "@/api/factories";
+import { users } from "@/api/cms/users/users.repo";
 import { listsResponses } from "@/config/responses";
 import { AddListUsersBody } from "../../lists.schemas";
 
@@ -14,10 +15,22 @@ export const addListUsersService = orgFactory.createHandlers(async (c) => {
   const candidatesToAdd = [];
 
   for (const userId of data) {
-    const existingCandidate = await lists.users.findById(organizationId, listId, userId);
-    if (!existingCandidate) candidatesToAdd.push({ organizationId, listId, userId });
+    const existingCandidate = await users.findById(organizationId, userId);
+
+    if (existingCandidate) {
+      const candidateAdded = await lists.users.findById(organizationId, listId, userId);
+      if (!candidateAdded) candidatesToAdd.push({ organizationId, listId, userId });
+    }
   }
 
-  await lists.users.createMany(candidatesToAdd);
-  return c.json(listsResponses.candidates.added, 201);
+  if (candidatesToAdd.length) {
+    await lists.users.createMany(candidatesToAdd);
+  }
+
+  return c.json(
+    candidatesToAdd.length === data.length
+      ? listsResponses.candidates.added
+      : listsResponses.candidates.addedPartially,
+    201,
+  );
 });
