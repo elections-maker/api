@@ -46,7 +46,7 @@ model Organization {
   votations      OrganizationVotation[]
   lists          OrganizationList[]
   listCandidates OrganizationListCandidate[]
-  votationUsers  OrganziationVotationUser[]
+  votationUsers  OrganizationVotationUser[]
   votationLists  OrganizationVotationList[]
 
   @@index([userId])
@@ -70,7 +70,7 @@ model OrganizationUser {
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   candidatures OrganizationListCandidate[]
-  votations    OrganziationVotationUser[]
+  votations    OrganizationVotationUser[]
 
   @@index([organizationId])
   @@map("organization_users")
@@ -90,7 +90,7 @@ model OrganizationVotation {
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
-  users OrganziationVotationUser[]
+  users OrganizationVotationUser[]
   lists OrganizationVotationList[]
 
   @@index([organizationId])
@@ -114,7 +114,7 @@ model OrganizationList {
   @@map("organization_lists")
 }
 
-model OrganziationVotationUser {
+model OrganizationVotationUser {
   organizationId String  @map("organization_id")
   votationId     String  @map("votation_id")
   userId         String  @map("user_id")
