@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Plan {
+  free
+  basic
+  professional
+  enterprise
+}
+
+model User {
+  id                 String  @id @default(uuid())
+  email              String  @unique @map("email")
+  username           String  @unique @map("username")
+  password           String  @map("password")
+  verified           Boolean @default(false) @map("verified")
+  currentVerifyToken String  @default("") @map("current_verify_token")
+  currentResetToken  String  @default("") @map("current_reset_token")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  organizations Organization[]
+
+  @@map("users")
+}
+
+model Organization {
+  id     String @id @default(uuid())
+  userId String @map("user_id")
+  name   String @map("name")
+  plan   Plan   @map("plan")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  owner User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  users          OrganizationUser[]
+  votations      OrganizationVotation[]
+  lists          OrganizationList[]
+  listCandidates OrganizationListCandidate[]
+  votationUsers  OrganizationVotationUser[]
+  votationLists  OrganizationVotationList[]
+
+  @@index([userId])
+  @@map("organizations")
+}
+
+model OrganizationUser {
+  id             String    @id @default(uuid())
+  organizationId String    @map("organization_id")
+  firstName      String    @map("first_name")
+  lastName       String    @map("last_name")
+  email          String    @map("email")
+  password       String?
+  verified       Boolean   @default(false)
+  verifyToken    String?   @map("verify_token")
+  expiresAt      DateTime? @map("verify_token_expires_at")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  candidatures OrganizationListCandidate[]
+  votations    OrganizationVotationUser[]
+
+  @@index([organizationId])
+  @@map("organization_users")
+}
+
+model OrganizationVotation {
+  id             String  @id @default(uuid())
+  organizationId String  @map("organization_id")
+  name           String
+  minPreferences Int     @map("min_preferences")
+  maxPreferences Int     @map("max_preferences")
+  intralist      Boolean
+  opened         Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  users OrganizationVotationUser[]
+  lists OrganizationVotationList[]
+
+  @@index([organizationId])
+  @@map("organization_votations")
+}
+
+model OrganizationList {
+  id             String @id @default(uuid())
+  organizationId String @map("organization_id")
+  name           String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  candidates OrganizationListCandidate[]
+  votations  OrganizationVotationList[]
+
+  @@index([organizationId])
+  @@map("organization_lists")
+}
+
+model OrganizationVotationUser {
+  organizationId String  @map("organization_id")
+  votationId     String  @map("votation_id")
+  userId         String  @map("user_id")
+  hasVoted       Boolean @default(false) @map("has_voted")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  votation OrganizationVotation @relation(fields: [votationId], references: [id], onDelete: Cascade)
+  user     OrganizationUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([organizationId, votationId, userId])
+  @@map("organization_votation_users")
+}
+
+model OrganizationVotationList {
+  organizationId String @map("organization_id")
+  votationId     String @map("votation_id")
+  listId         String @map("list_id")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  votation OrganizationVotation @relation(fields: [votationId], references: [id], onDelete: Cascade)
+  list     OrganizationList     @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  @@id([organizationId, votationId, listId])
+  @@map("organization_votation_lists")
+}
+
+model OrganizationListCandidate {
+  organizationId String @map("organization_id")
+  listId         String @map("list_id")
+  userId         String @map("user_id")
+  votes          Int    @default(0)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  list OrganizationList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  user OrganizationUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([organizationId, listId, userId])
+  @@map("organization_list_candidates")
+}

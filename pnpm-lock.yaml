@@ -23,12 +23,21 @@ dependencies:
   bcrypt:
     specifier: ^5.1.1
     version: 5.1.1
+  csv-parse:
+    specifier: ^5.5.6
+    version: 5.5.6
   hono:
     specifier: ^4.5.11
     version: 4.5.11
+  node-xlsx:
+    specifier: ^0.24.0
+    version: 0.24.0
   nodemailer:
     specifier: ^6.9.14
     version: 6.9.14
+  rabbitmq-client:
+    specifier: ^5.0.0
+    version: 5.0.0
   zod:
     specifier: ^3.23.8
     version: 3.23.8
@@ -49,6 +58,9 @@ devDependencies:
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
+  husky:
+    specifier: ^9.1.5
+    version: 9.1.5
   kittylog:
     specifier: ^1.0.6
     version: 1.0.6
@@ -1338,6 +1350,13 @@ packages:
       }
     dev: true
 
+  /csv-parse@5.5.6:
+    resolution:
+      {
+        integrity: sha512-uNpm30m/AGSkLxxy7d9yRXpJQFrZzVWLFBkS+6ngPcZkw/5k3L/jjFuj7tVnEpRn+QgmiXr21nDlhCiUK4ij2A==,
+      }
+    dev: false
+
   /debug@4.3.6:
     resolution:
       {
@@ -1658,6 +1677,15 @@ packages:
       - supports-color
     dev: false
 
+  /husky@9.1.5:
+    resolution:
+      {
+        integrity: sha512-rowAVRUBfI0b4+niA4SJMhfQwc107VLkBUgEYYAOQAbqDCnra1nYh83hF/MDmhYs9t9n1E3DuKOrs2LYNC+0Ag==,
+      }
+    engines: { node: ">=18" }
+    hasBin: true
+    dev: true
+
   /inflight@1.0.6:
     resolution:
       {
@@ -1919,6 +1947,17 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
+  /node-xlsx@0.24.0:
+    resolution:
+      {
+        integrity: sha512-1olwK48XK9nXZsyH/FCltvGrQYvXXZuxVitxXXv2GIuRm51aBi1+5KwR4rWM4KeO61sFU+00913WLZTD+AcXEg==,
+      }
+    engines: { node: ">=10.0.0" }
+    hasBin: true
+    dependencies:
+      xlsx: "@cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
+    dev: false
+
   /nodemailer@6.9.14:
     resolution:
       {
@@ -2087,6 +2126,14 @@ packages:
       "@protobufjs/utf8": 1.1.0
       "@types/node": 20.16.3
       long: 5.2.3
+    dev: false
+
+  /rabbitmq-client@5.0.0:
+    resolution:
+      {
+        integrity: sha512-IvPafeLO89qEv9QPbMb8nqkXOKRYHvo0sXntK8cHLY/fkkS8DJRtwCPtQerMZZ9n1jLhifJtioyK7vp5wIp6Gg==,
+      }
+    engines: { node: ">=16" }
     dev: false
 
   /react-dom@18.3.1(react@18.3.1):
@@ -2431,4 +2478,12 @@ packages:
       {
         integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==,
       }
+    dev: false
+
+  "@cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz":
+    resolution: { tarball: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz }
+    name: xlsx
+    version: 0.20.2
+    engines: { node: ">=0.8" }
+    hasBin: true
     dev: false
