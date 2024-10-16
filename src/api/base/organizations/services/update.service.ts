@@ -5,9 +5,10 @@ import { organizationsResponses } from "@/config/responses";
 
 export const updateOrganizationService = authFactory.createHandlers(async (c) => {
   const { name, plan } = await c.req.json<UpdateOrgBody>();
+  const { organizationId } = c.req.param();
   const { id: userId } = c.get("userData");
 
-  const fetchedOrg = await organizations.findByName(userId, name);
+  const fetchedOrg = await organizations.findById(userId, organizationId);
   if (!fetchedOrg) return c.json(organizationsResponses.notExists, 409);
 
   if (name !== fetchedOrg.name) {
